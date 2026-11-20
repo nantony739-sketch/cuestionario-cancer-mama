@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuestionario: Cáncer de Mama</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Fondo con elementos flotantes (se crean con JS) -->
+  <div id="fondo"></div>
+
+  <!-- Botón flotante para volver al inicio -->
+  <button id="btn-inicio" class="flotante oculto" title="Volver al inicio">🏠</button>
+
+  <main class="contenedor">
+
+    <!-- Pantalla de bienvenida -->
+    <section id="bienvenida" class="pantalla">
+      <div class="lazo">🎀</div>
+      <p class="etiqueta">SALUD Y PREVENCIÓN</p>
+      <h1>Cáncer de Mama</h1>
+      <p class="subtitulo">Detección temprana y autocuidado</p>
+      <div class="linea"></div>
+      <p class="intro">Pon a prueba lo que aprendiste con 10 preguntas. ¿Estás lista(o)?</p>
+      <button id="comenzar" class="principal pulso">Siguiente ➜</button>
+    </section>
+
+    <!-- Pantalla del cuestionario -->
+    <section id="quiz" class="pantalla oculto">
+      <p id="progreso">Pregunta 1 de 10</p>
+      <div class="barra"><div id="barra-llena"></div></div>
+
+      <h2 id="pregunta"></h2>
+      <div id="opciones"></div>
+
+      <p id="explicacion" class="oculto"></p>
+      <button id="siguiente" class="principal">Siguiente</button>
+    </section>
+
+    <!-- Pantalla de resultado -->
+    <section id="resultado" class="pantalla oculto">
+      <div class="lazo">🎀</div>
+      <h2>¡Terminaste!</h2>
+      <p id="puntaje" class="puntaje"></p>
+      <p id="mensaje"></p>
+      <button id="reiniciar" class="principal">Intentar de nuevo</button>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

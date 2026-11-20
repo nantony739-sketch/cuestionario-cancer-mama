@@ -1,0 +1,368 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh; /* altura real en celulares (barra del navegador) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #3b1126, #6a1b4d, #3b1126);
+  background-size: 300% 300%;
+  animation: fondoMovil 12s ease infinite;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #1f1b2e;
+  padding: clamp(10px, 3vw, 24px);
+  padding-bottom: 90px; /* espacio para que el botón flotante no tape nada */
+  overflow-x: hidden;
+}
+
+@keyframes fondoMovil {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ----- Elementos flotantes del fondo ----- */
+#fondo {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.burbuja {
+  position: absolute;
+  bottom: -60px;
+  opacity: 0;
+  animation: subir linear infinite;
+}
+
+@keyframes subir {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.7; }
+  90%  { opacity: 0.7; }
+  100% { transform: translateY(-115vh) rotate(360deg); opacity: 0; }
+}
+
+/* ----- Tarjeta principal ----- */
+.contenedor {
+  position: relative;
+  z-index: 1;
+  background: #fff8f8;
+  width: 100%;
+  max-width: 680px;
+  padding: clamp(18px, 5vw, 36px);
+  border-radius: clamp(14px, 3vw, 22px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.pantalla {
+  animation: entrarPantalla 0.6s ease;
+}
+
+@keyframes entrarPantalla {
+  from { opacity: 0; transform: translateY(30px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.oculto {
+  display: none !important;
+}
+
+/* ----- Bienvenida ----- */
+#bienvenida {
+  text-align: center;
+}
+
+.lazo {
+  font-size: clamp(48px, 12vw, 70px);
+  display: inline-block;
+  animation: flotar 3s ease-in-out infinite;
+}
+
+@keyframes flotar {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50%      { transform: translateY(-14px) rotate(5deg); }
+}
+
+.etiqueta {
+  margin: 8px 0 0;
+  color: #e0609a;
+  font-weight: bold;
+  font-size: clamp(11px, 3vw, 13px);
+  letter-spacing: 3px;
+}
+
+h1 {
+  margin: 4px 0;
+  font-size: clamp(30px, 9vw, 48px);
+  line-height: 1.1;
+  color: #3b1126;
+}
+
+.subtitulo {
+  margin: 0;
+  font-size: clamp(15px, 4vw, 19px);
+  color: #6b6478;
+}
+
+.linea {
+  width: 70px;
+  height: 4px;
+  background: #d81b60;
+  border-radius: 2px;
+  margin: 18px auto;
+  animation: ensanchar 2s ease-in-out infinite;
+}
+
+@keyframes ensanchar {
+  0%, 100% { width: 70px; }
+  50%      { width: 130px; }
+}
+
+.intro {
+  margin: 0 0 8px;
+  font-size: clamp(15px, 4vw, 17px);
+  color: #4a4458;
+}
+
+/* ----- Cuestionario ----- */
+h2 {
+  font-size: clamp(18px, 5vw, 23px);
+  line-height: 1.3;
+  margin: 20px 0 16px;
+  animation: deslizar 0.5s ease;
+}
+
+#progreso {
+  margin: 0 0 8px;
+  color: #6b6478;
+  font-size: clamp(13px, 3.5vw, 15px);
+}
+
+.barra {
+  height: 10px;
+  background: #f3d3e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#barra-llena {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #e0609a, #d81b60);
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+
+@keyframes deslizar {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.opcion {
+  display: block;
+  width: 100%;
+  min-height: 52px; /* tamaño cómodo para tocar con el dedo */
+  margin: 10px 0;
+  padding: 14px 16px;
+  font-size: clamp(15px, 4vw, 17px);
+  font-family: inherit;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+  color: #1f1b2e;
+  border: 2px solid #e5cdd7;
+  border-radius: 12px;
+  background: white;
+  opacity: 0;
+  animation: deslizar 0.5s ease forwards;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.opcion:disabled {
+  cursor: default;
+}
+
+.correcta {
+  background: #c8f7c5;
+  border-color: #2e9d3a;
+  animation: deslizar 0.5s ease forwards, rebote 0.5s ease;
+}
+
+.incorrecta {
+  background: #f9c4c4;
+  border-color: #c0392b;
+  animation: deslizar 0.5s ease forwards, temblar 0.5s ease;
+}
+
+@keyframes rebote {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+
+@keyframes temblar {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+#explicacion {
+  margin: 16px 0 0;
+  padding: 12px;
+  background: #fce4ec;
+  border-left: 4px solid #d81b60;
+  border-radius: 6px;
+  font-size: clamp(13px, 3.6vw, 15px);
+  line-height: 1.4;
+  animation: deslizar 0.4s ease;
+}
+
+/* ----- Botones ----- */
+.principal {
+  margin-top: 20px;
+  padding: 14px 32px;
+  min-height: 50px;
+  font-size: clamp(16px, 4vw, 18px);
+  font-family: inherit;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #e0609a, #d81b60);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(216, 27, 96, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.principal:active {
+  transform: scale(0.96);
+}
+
+.pulso {
+  animation: pulso 1.8s ease-in-out infinite;
+}
+
+@keyframes pulso {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(216, 27, 96, 0.6); }
+  50%      { box-shadow: 0 0 0 16px rgba(216, 27, 96, 0); }
+}
+
+/* Botón flotante fijo */
+.flotante {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 5;
+  width: 56px;
+  height: 56px;
+  font-size: 26px;
+  border: none;
+  border-radius: 50%;
+  background: #d81b60;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  animation: flotarBoton 2.5s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes flotarBoton {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* ----- Resultado ----- */
+#resultado {
+  text-align: center;
+}
+
+.puntaje {
+  font-size: clamp(48px, 14vw, 72px);
+  font-weight: bold;
+  color: #d81b60;
+  margin: 8px 0;
+  animation: aparecer 0.8s ease;
+}
+
+#mensaje {
+  font-size: clamp(15px, 4vw, 18px);
+}
+
+@keyframes aparecer {
+  0%   { transform: scale(0); opacity: 0; }
+  70%  { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ----- Efectos hover solo en dispositivos con mouse ----- */
+@media (hover: hover) {
+  .opcion:hover:not(:disabled) {
+    transform: translateX(8px) scale(1.02);
+    border-color: #d81b60;
+    box-shadow: 0 4px 12px rgba(216, 27, 96, 0.25);
+  }
+
+  .principal:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 22px rgba(216, 27, 96, 0.5);
+  }
+
+  .flotante:hover {
+    background: #b0124c;
+  }
+}
+
+/* ----- Celulares pequeños ----- */
+@media (max-width: 400px) {
+  .principal {
+    width: 100%; /* botones a todo el ancho */
+  }
+  .opcion {
+    padding: 12px 14px;
+  }
+}
+
+/* ----- Tablets y pantallas grandes ----- */
+@media (min-width: 768px) {
+  .contenedor {
+    max-width: 720px;
+  }
+}
+
+/* ----- Celular acostado (horizontal) ----- */
+@media (max-height: 500px) and (orientation: landscape) {
+  body {
+    align-items: flex-start;
+  }
+  .lazo {
+    font-size: 40px;
+  }
+  .linea {
+    margin: 10px auto;
+  }
+  .opcion {
+    min-height: 44px;
+    margin: 6px 0;
+  }
+}
+
+/* ----- Respeta a quien prefiere menos animaciones ----- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
